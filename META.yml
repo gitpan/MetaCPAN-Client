@@ -1,0 +1,40 @@
+---
+abstract: 'A comprehensive, DWIM-featured client to the MetaCPAN API'
+author:
+  - 'Sawyer X <xsawyerx@cpan.org>'
+  - 'Mickey Nasriachi <mickey@cpan.org>'
+build_requires:
+  File::Spec: 0
+  IO::Handle: 0
+  IPC::Open3: 0
+  Module::Build: 0.3601
+  Test::Fatal: 0
+  Test::More: 0
+  perl: 5.006
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.131560'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: MetaCPAN-Client
+no_index:
+  file:
+    - README.pod
+requires:
+  Carp: 0
+  Elasticsearch: 1.04
+  Elasticsearch::Scroll: 0
+  HTTP::Tiny: 0
+  JSON: 0
+  Moo: 0
+  Moo::Role: 0
+  Try::Tiny: 0
+  strict: 0
+  warnings: 0
+resources:
+  repository: https://github.com/CPAN-API/metacpan-client.git
+version: 1.000000
