@@ -2,15 +2,15 @@ use strict;
 use warnings;
 package MetaCPAN::Client::ResultSet;
 # ABSTRACT: A Result Set
-$MetaCPAN::Client::ResultSet::VERSION = '1.000000';
+$MetaCPAN::Client::ResultSet::VERSION = '1.000001';
 use Moo;
 use Carp;
 
 has scroller => (
     is       => 'ro',
     isa      => sub {
-        ref $_[0] eq 'Elasticsearch::Scroll'
-            or croak 'scroller must be an Elasticsearch::Scroll object';
+        ref $_[0] eq 'Search::Elasticsearch::Scroll'
+            or croak 'scroller must be an Search::Elasticsearch::Scroll object';
     },
     handles  => ['total'],
     required => 1,
@@ -65,7 +65,7 @@ MetaCPAN::Client::ResultSet - A Result Set
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 DESCRIPTION
 
@@ -77,7 +77,7 @@ and facets.
 
 =head2 scroller
 
-An L<Elasticsearch::Scroll> object
+An L<Search::Elasticsearch::Scroll> object
 
 =head2 type
 

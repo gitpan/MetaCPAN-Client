@@ -20,19 +20,19 @@ my %module_build_args = (
     "Mickey Nasriachi <mickey\@cpan.org>"
   ],
   "dist_name" => "MetaCPAN-Client",
-  "dist_version" => "1.000000",
+  "dist_version" => "1.000001",
   "license" => "perl",
   "module_name" => "MetaCPAN::Client",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
     "Carp" => 0,
-    "Elasticsearch" => "1.04",
-    "Elasticsearch::Scroll" => 0,
     "HTTP::Tiny" => 0,
     "JSON" => 0,
     "Moo" => 0,
     "Moo::Role" => 0,
+    "Search::Elasticsearch" => "1.10",
+    "Search::Elasticsearch::Scroll" => 0,
     "Try::Tiny" => 0,
     "strict" => 0,
     "warnings" => 0

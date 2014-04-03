@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::File;
 # ABSTRACT: A File data object
-$MetaCPAN::Client::File::VERSION = '1.000000';
+$MetaCPAN::Client::File::VERSION = '1.000001';
 use Moo;
 
 with 'MetaCPAN::Client::Role::Entity';
@@ -41,7 +41,7 @@ MetaCPAN::Client::File - A File data object
 
 =head1 VERSION
 
-version 1.000000
+version 1.000001
 
 =head1 DESCRIPTION
 

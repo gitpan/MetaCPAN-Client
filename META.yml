@@ -26,15 +26,15 @@ no_index:
     - README.pod
 requires:
   Carp: 0
-  Elasticsearch: 1.04
-  Elasticsearch::Scroll: 0
   HTTP::Tiny: 0
   JSON: 0
   Moo: 0
   Moo::Role: 0
+  Search::Elasticsearch: 1.10
+  Search::Elasticsearch::Scroll: 0
   Try::Tiny: 0
   strict: 0
   warnings: 0
 resources:
   repository: https://github.com/CPAN-API/metacpan-client.git
-version: 1.000000
+version: 1.000001
