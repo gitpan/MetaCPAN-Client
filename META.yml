@@ -36,5 +36,5 @@ requires:
   strict: 0
   warnings: 0
 resources:
-  repository: https://github.com/CPAN-API/metacpan-client.git
-version: 1.000001
+  repository: git://github.com/CPAN-API/metacpan-client.git
+version: 1.001000

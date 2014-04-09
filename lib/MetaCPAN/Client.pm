@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.000001';
+$MetaCPAN::Client::VERSION = '1.001000';
 use Moo;
 use Carp;
 
@@ -184,7 +184,7 @@ MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.000001
+version 1.001000
 
 =head1 SYNOPSIS
 
@@ -311,7 +311,8 @@ Simple searches just contain keys and values:
     my $author = $mcpan->author( { pauseid => 'MICKEY' } );
 
     # find all people named Dave, not covering Davids
-    my @daves = $mcpan->author( { name => 'Dave *' } );
+    # will return a resultset
+    my $daves = $mcpan->author( { name => 'Dave *' } );
 
 =head2 OR
 
@@ -320,7 +321,7 @@ such as "this or that", you can use the following syntax with the C<either>
 key:
 
     # any author named "Dave" or "David"
-    my @daves = $mcpan->author( {
+    my $daves = $mcpan->author( {
         either => [
             { name => 'Dave *'  },
             { name => 'David *' },
@@ -334,7 +335,7 @@ such as "this and that", you can use the following syntax with the C<all>
 key:
 
     # any users named 'John' with a Gmail account
-    my @gravatar_johns = $mcpan->author( {
+    my $johns = $mcpan->author( {
         all => [
             { name  => 'John *'     },
             { email => '*gmail.com' },
