@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::ResultSet;
 # ABSTRACT: A Result Set
-$MetaCPAN::Client::ResultSet::VERSION = '1.001000';
+$MetaCPAN::Client::ResultSet::VERSION = '1.001001';
 use Moo;
 use Carp;
 
@@ -47,7 +47,8 @@ sub next {
         or return;
 
     my $class = 'MetaCPAN::Client::' . ucfirst $self->type;
-    return $class->new_from_request( $result->{'_source'} );
+
+    return $class->new_from_request( $result->{'_source'} || $result->{'fields'} );
 }
 
 
@@ -65,7 +66,7 @@ MetaCPAN::Client::ResultSet - A Result Set
 
 =head1 VERSION
 
-version 1.001000
+version 1.001001
 
 =head1 DESCRIPTION
 
