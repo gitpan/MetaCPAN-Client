@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.001001';
+$MetaCPAN::Client::VERSION = '1.002000';
 use Moo;
 use Carp;
 
@@ -109,6 +109,17 @@ sub release {
     return $self->_get_or_search( 'release', $arg, $params );
 }
 
+sub reverse_dependencies {
+    my $self = shift;
+    my $dist = shift;
+
+    $dist =~ s/::/-/g;
+
+    return $self->_reverse_deps($dist);
+}
+
+*rev_deps = *reverse_dependencies;
+
 sub pod {}
 
 ###
@@ -170,6 +181,34 @@ sub _get_or_search {
     croak "$type: invalid args (takes scalar value or search parameters hashref)";
 }
 
+sub _reverse_deps {
+    my $self = shift;
+    my $dist = shift;
+
+    my $res;
+
+    eval {
+        $res = $self->fetch(
+            '/search/reverse_dependencies/'.$dist,
+            {
+                query  => { match_all => {} },
+                filter => { term => { 'release.status' => 'latest' } },
+                size   => 5000,
+            }
+        );
+
+    } or do {
+        warn $@;
+        return [];
+    };
+
+    return +[
+        map { MetaCPAN::Client::Release->new_from_request($_->{'_source'}) }
+        @{ $res->{'hits'}{'hits'} }
+    ];
+}
+
+
 1;
 
 __END__
@@ -184,7 +223,7 @@ MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.001001
+version 1.002000
 
 =head1 SYNOPSIS
 
@@ -292,6 +331,17 @@ Return a L<MetaCPAN::Client::Release> object on a simple search (release name),
 or a L<MetaCPAN::Client::ResultSet> object propagated with
 L<MetaCPAN::Client::Release> objects on a complex (search spec based) search.
 
+=head2 reverse_dependencies
+
+    my $deps = $mcpan->reverse_dependencies('ElasticSearch');
+
+Return an array (ref) of L<MetaCPAN::Client::Distribution> matching all
+distributions that are dependent on a given module.
+
+=head2 rev_deps
+
+Alias to C<reverse_dependencies> described above.
+
 =head2 pod
 
 Not implemented yet.
@@ -340,6 +390,23 @@ key:
             { name  => 'John *'     },
             { email => '*gmail.com' },
         ]
+    } );
+
+=head2 NOT
+
+If you want to filter out some of the results of an either/all query
+adding a I<NOT> filter condition, such as "not these", you can use the
+following syntax with the C<not> key:
+
+    # any author named "Dave" or "David"
+    my $daves = $mcpan->author( {
+        either => [
+            { name => 'Dave *'  },
+            { name => 'David *' },
+        ],
+        not => [
+            { email => '*gmail.com' },
+        ],
     } );
 
 =head1 DESIGN

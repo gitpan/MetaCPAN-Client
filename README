@@ -3,7 +3,7 @@ NAME
     API
 
 VERSION
-    version 1.001001
+    version 1.002000
 
 SYNOPSIS
         # simple usage
@@ -103,6 +103,15 @@ METHODS
     MetaCPAN::Client::Release objects on a complex (search spec based)
     search.
 
+  reverse_dependencies
+        my $deps = $mcpan->reverse_dependencies('ElasticSearch');
+
+    Return an array (ref) of MetaCPAN::Client::Distribution matching all
+    distributions that are dependent on a given module.
+
+  rev_deps
+    Alias to "reverse_dependencies" described above.
+
   pod
     Not implemented yet.
 
@@ -146,6 +155,22 @@ SEARCH SPEC
                 { name  => 'John *'     },
                 { email => '*gmail.com' },
             ]
+        } );
+
+  NOT
+    If you want to filter out some of the results of an either/all query
+    adding a *NOT* filter condition, such as "not these", you can use the
+    following syntax with the "not" key:
+
+        # any author named "Dave" or "David"
+        my $daves = $mcpan->author( {
+            either => [
+                { name => 'Dave *'  },
+                { name => 'David *' },
+            ],
+            not => [
+                { email => '*gmail.com' },
+            ],
         } );
 
 DESIGN
