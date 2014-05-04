@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.002000';
+$MetaCPAN::Client::VERSION = '1.003000';
 use Moo;
 use Carp;
 
@@ -18,14 +18,22 @@ use MetaCPAN::Client::ResultSet;
 
 has request => (
     is      => 'ro',
-    lazy    => 1,
-    builder => sub { MetaCPAN::Client::Request->new },
-    handles => [qw<fetch post ssearch>],
+    handles => [qw<ua fetch post ssearch>],
 );
 
 my @supported_searches = qw<
     author distribution favorite module rating release
 >;
+
+sub BUILDARGS {
+    my ( $class, %args ) = @_;
+
+    $args{'request'} ||= MetaCPAN::Client::Request->new(
+        ( ua => $args{'ua'} ) x !! $args{'ua'},
+    );
+
+    return \%args;
+}
 
 sub author {
     my $self   = shift;
@@ -120,8 +128,6 @@ sub reverse_dependencies {
 
 *rev_deps = *reverse_dependencies;
 
-sub pod {}
-
 ###
 
 sub _get {
@@ -175,8 +181,8 @@ sub _get_or_search {
     ref $arg eq 'HASH' and
         return $self->_search( $type, $arg, $params );
 
-    defined $arg and $arg =~ /^[A-Za-z\-\:]+$/ and
-        return $self->_get($type, $arg);
+    defined $arg and ! ref($arg)
+        and return $self->_get($type, $arg);
 
     croak "$type: invalid args (takes scalar value or search parameters hashref)";
 }
@@ -215,15 +221,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.002000
+version 1.003000
 
 =head1 SYNOPSIS
 
@@ -263,6 +267,14 @@ This is a hopefully-complete API-compliant client to MetaCPAN
 Internal attribute representing the request object making the request to
 MetaCPAN and analyzing the results. You probably don't want to set this, nor
 should you have any usage of it.
+
+=head2 ua
+
+If provided, L<MetaCPAN::Client::Request> will use the user agent object
+instead of the default, which is L<HTTP::Tiny>.
+
+Then it can be used to fetch the user agent object used by
+L<MetaCPAN::Client::Request>.
 
 =head1 METHODS
 
@@ -335,8 +347,8 @@ L<MetaCPAN::Client::Release> objects on a complex (search spec based) search.
 
     my $deps = $mcpan->reverse_dependencies('ElasticSearch');
 
-Return an array (ref) of L<MetaCPAN::Client::Distribution> matching all
-distributions that are dependent on a given module.
+Return an array (ref) of L<MetaCPAN::Client::Release> matching all
+releases that are dependent on a given module.
 
 =head2 rev_deps
 
@@ -345,6 +357,10 @@ Alias to C<reverse_dependencies> described above.
 =head2 pod
 
 Not implemented yet.
+
+=head2 BUILDARGS
+
+Internal construction wrapper. Do not use.
 
 =head1 SEARCH SPEC
 

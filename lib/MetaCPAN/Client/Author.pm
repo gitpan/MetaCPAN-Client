@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Author;
 # ABSTRACT: An Author data object
-$MetaCPAN::Client::Author::VERSION = '1.002000';
+$MetaCPAN::Client::Author::VERSION = '1.003000';
 use Moo;
 
 with 'MetaCPAN::Client::Role::Entity';
@@ -25,13 +25,26 @@ foreach my $field (@known_fields) {
 
 sub _known_fields { return \@known_fields }
 
+sub releases {
+    my $self = shift;
+    my $id   = $self->pauseid;
+
+    require MetaCPAN::Client;
+
+    return
+        MetaCPAN::Client->new->release({
+            all => [
+                { author => $id      },
+                { status => 'latest' },
+            ]
+        });
+}
+
 1;
 
 __END__
 
 =pod
-
-=encoding UTF-8
 
 =head1 NAME
 
@@ -39,7 +52,7 @@ MetaCPAN::Client::Author - An Author data object
 
 =head1 VERSION
 
-version 1.002000
+version 1.003000
 
 =head1 DESCRIPTION
 
@@ -111,6 +124,15 @@ Array of Author's websites.
 =head2 updated
 
 =head2 user
+
+=head1 METHODS
+
+=head2 releases
+
+    my $releases = $author->releases();
+
+Search all releases of current author's object.
+will return a ResultSet of MetaCPAN::Client::Release objects.
 
 =head1 AUTHORS
 

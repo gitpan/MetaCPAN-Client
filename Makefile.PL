@@ -26,7 +26,7 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Carp" => 0,
     "HTTP::Tiny" => 0,
-    "JSON" => 0,
+    "JSON::MaybeXS" => 0,
     "Moo" => 0,
     "Moo::Role" => 0,
     "Search::Elasticsearch" => "1.10",
@@ -42,7 +42,7 @@ my %WriteMakefileArgs = (
     "Test::Fatal" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "1.002000",
+  "VERSION" => "1.003000",
   "test" => {
     "TESTS" => "t/*.t t/api/*.t"
   }
@@ -55,7 +55,7 @@ my %FallbackPrereqs = (
   "HTTP::Tiny" => 0,
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
-  "JSON" => 0,
+  "JSON::MaybeXS" => 0,
   "Module::Build" => "0.3601",
   "Moo" => 0,
   "Moo::Role" => 0,

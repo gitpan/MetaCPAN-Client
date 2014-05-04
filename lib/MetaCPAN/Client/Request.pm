@@ -2,10 +2,10 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Request;
 # ABSTRACT: Object used for making requests to MetaCPAN
-$MetaCPAN::Client::Request::VERSION = '1.002000';
+$MetaCPAN::Client::Request::VERSION = '1.003000';
 use Moo;
 use Carp;
-use JSON;
+use JSON::MaybeXS qw<decode_json encode_json>;
 use Search::Elasticsearch;
 use Search::Elasticsearch::Scroll;
 use Try::Tiny;
@@ -56,7 +56,7 @@ sub fetch {
     my $ua      = $self->ua;
 
     my $result  = keys %{$params}
-        ? $ua->post( $req_url, { content => to_json $params } )
+        ? $ua->post( $req_url, { content => encode_json $params } )
         : $ua->get($req_url);
 
     return $self->_decode_result( $result, $req_url );
@@ -106,6 +106,8 @@ sub _decode_result {
 
     my $content = $result->{'content'}
         or croak 'Missing content in return value';
+
+    $url =~ m|/pod/| and return $content;
 
     my $decoded_result;
     try   { $decoded_result = decode_json $content }
@@ -177,15 +179,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 MetaCPAN::Client::Request - Object used for making requests to MetaCPAN
 
 =head1 VERSION
 
-version 1.002000
+version 1.003000
 
 =head1 ATTRIBUTES
 

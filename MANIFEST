@@ -7,6 +7,16 @@ META.yml
 Makefile.PL
 README
 dist.ini
+examples/author-country.pl
+examples/author.pl
+examples/author_releases.pl
+examples/complex-either-and.pl
+examples/complex-either-not.pl
+examples/complex.pl
+examples/distribution.pl
+examples/release.pl
+examples/rev_deps-recursive.pl
+examples/rev_deps.pl
 lib/MetaCPAN/Client.pm
 lib/MetaCPAN/Client/Author.pm
 lib/MetaCPAN/Client/Distribution.pm

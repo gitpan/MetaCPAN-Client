@@ -2,13 +2,14 @@ use strict;
 use warnings;
 package MetaCPAN::Client::File;
 # ABSTRACT: A File data object
-$MetaCPAN::Client::File::VERSION = '1.002000';
+$MetaCPAN::Client::File::VERSION = '1.003000';
 use Moo;
+use Carp;
 
 with 'MetaCPAN::Client::Role::Entity';
 
 my @known_fields = qw<
-    pod status date author maturity directory indexed documentation id
+    status date author maturity directory indexed documentation id
     module authorized pod_lines version binary name version_numified release
     path description stat distribution level sloc abstract slop mime
 >;
@@ -26,6 +27,24 @@ foreach my $field (@known_fields) {
 
 sub _known_fields { return \@known_fields }
 
+sub pod {
+    my $self   = shift;
+    my $ctype  = shift || "plain";
+    $ctype = lc($ctype);
+
+    grep { $ctype eq $_ } qw<html plain x-pod x-markdown>
+        or croak "wrong content-type for POD requested";
+
+    my $name = $self->module->[0]{name};
+
+    require MetaCPAN::Client::Request;
+
+    return
+        MetaCPAN::Client::Request->new->fetch(
+            "pod/${name}?content-type=text/${ctype}"
+        );
+}
+
 
 1;
 
@@ -33,21 +52,17 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 MetaCPAN::Client::File - A File data object
 
 =head1 VERSION
 
-version 1.002000
+version 1.003000
 
 =head1 DESCRIPTION
 
 =head1 ATTRIBUTES
-
-=head2 pod
 
 =head2 status
 
@@ -98,6 +113,19 @@ version 1.002000
 =head2 slop
 
 =head2 mime
+
+=head1 METHODS
+
+=head2 pod
+
+    my $pod = $module->pod(); # default = plain
+    my $pod = $module->pod($type);
+
+Returns the POD content for the module/file.
+
+Takes a type as argument.
+
+Supported types: B<plain>, B<html>, B<x-pod>, B<x-markdown>.
 
 =head1 AUTHORS
 

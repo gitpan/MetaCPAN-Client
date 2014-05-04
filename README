@@ -3,7 +3,7 @@ NAME
     API
 
 VERSION
-    version 1.002000
+    version 1.003000
 
 SYNOPSIS
         # simple usage
@@ -40,6 +40,13 @@ ATTRIBUTES
     Internal attribute representing the request object making the request to
     MetaCPAN and analyzing the results. You probably don't want to set this,
     nor should you have any usage of it.
+
+  ua
+    If provided, MetaCPAN::Client::Request will use the user agent object
+    instead of the default, which is HTTP::Tiny.
+
+    Then it can be used to fetch the user agent object used by
+    MetaCPAN::Client::Request.
 
 METHODS
   author
@@ -106,14 +113,17 @@ METHODS
   reverse_dependencies
         my $deps = $mcpan->reverse_dependencies('ElasticSearch');
 
-    Return an array (ref) of MetaCPAN::Client::Distribution matching all
-    distributions that are dependent on a given module.
+    Return an array (ref) of MetaCPAN::Client::Release matching all releases
+    that are dependent on a given module.
 
   rev_deps
     Alias to "reverse_dependencies" described above.
 
   pod
     Not implemented yet.
+
+  BUILDARGS
+    Internal construction wrapper. Do not use.
 
 SEARCH SPEC
     The hash-based search spec is common to many searches. It is quite

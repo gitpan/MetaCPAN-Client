@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Release;
 # ABSTRACT: A Release data object
-$MetaCPAN::Client::Release::VERSION = '1.002000';
+$MetaCPAN::Client::Release::VERSION = '1.003000';
 use Moo;
 
 with 'MetaCPAN::Client::Role::Entity';
@@ -32,15 +32,13 @@ __END__
 
 =pod
 
-=encoding UTF-8
-
 =head1 NAME
 
 MetaCPAN::Client::Release - A Release data object
 
 =head1 VERSION
 
-version 1.002000
+version 1.003000
 
 =head1 DESCRIPTION
 

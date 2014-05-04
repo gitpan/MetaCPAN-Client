@@ -20,7 +20,7 @@ my %module_build_args = (
     "Mickey Nasriachi <mickey\@cpan.org>"
   ],
   "dist_name" => "MetaCPAN-Client",
-  "dist_version" => "1.002000",
+  "dist_version" => "1.003000",
   "license" => "perl",
   "module_name" => "MetaCPAN::Client",
   "recommends" => {},
@@ -28,7 +28,7 @@ my %module_build_args = (
   "requires" => {
     "Carp" => 0,
     "HTTP::Tiny" => 0,
-    "JSON" => 0,
+    "JSON::MaybeXS" => 0,
     "Moo" => 0,
     "Moo::Role" => 0,
     "Search::Elasticsearch" => "1.10",
