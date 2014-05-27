@@ -20,7 +20,7 @@ my %module_build_args = (
     "Mickey Nasriachi <mickey\@cpan.org>"
   ],
   "dist_name" => "MetaCPAN-Client",
-  "dist_version" => "1.003000",
+  "dist_version" => "1.004000",
   "license" => "perl",
   "module_name" => "MetaCPAN::Client",
   "recommends" => {},
@@ -31,6 +31,7 @@ my %module_build_args = (
     "JSON::MaybeXS" => 0,
     "Moo" => 0,
     "Moo::Role" => 0,
+    "Safe::Isa" => 0,
     "Search::Elasticsearch" => "1.10",
     "Search::Elasticsearch::Scroll" => 0,
     "Try::Tiny" => 0,
@@ -44,6 +45,7 @@ my %module_build_args = (
     "IPC::Open3" => 0,
     "Test::Fatal" => 0,
     "Test::More" => 0,
+    "base" => 0,
     "perl" => "5.006"
   }
 );
@@ -56,6 +58,7 @@ my %fallback_build_requires = (
   "Module::Build" => "0.3601",
   "Test::Fatal" => 0,
   "Test::More" => 0,
+  "base" => 0,
   "perl" => "5.006"
 );
 

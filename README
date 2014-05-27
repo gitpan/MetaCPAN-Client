@@ -3,7 +3,7 @@ NAME
     API
 
 VERSION
-    version 1.003000
+    version 1.004000
 
 SYNOPSIS
         # simple usage
@@ -76,8 +76,8 @@ METHODS
     search.
 
   distribution
-        my $dist = $mcpan->dist('MetaCPAN-Client');
-        my $dist = $mcpan->dist($search_spec);
+        my $dist = $mcpan->distribution('MetaCPAN-Client');
+        my $dist = $mcpan->distribution($search_spec);
 
     Finds a distribution by either its distribution name or by a search spec
     defined by a hash reference. Since it is common to many other searches,
@@ -113,8 +113,8 @@ METHODS
   reverse_dependencies
         my $deps = $mcpan->reverse_dependencies('ElasticSearch');
 
-    Return an array (ref) of MetaCPAN::Client::Release matching all releases
-    that are dependent on a given module.
+    all MetaCPAN::Client::Release objects of releases that are dependent on
+    a given module, returned as MetaCPAN::Client::ResultSet.
 
   rev_deps
     Alias to "reverse_dependencies" described above.

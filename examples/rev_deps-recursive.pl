@@ -5,7 +5,7 @@ use MetaCPAN::Client;
 
 $|=1;
 
-my $dist  = 'Hijk';
+my $dist  = shift || 'Hijk';
 my $mcpan = MetaCPAN::Client->new;
 
 print "\n\n", colored( "* $dist", 'green' ), "\n";
@@ -17,16 +17,16 @@ sub dig {
 
     my $res   = $mcpan->reverse_dependencies($dist);
 
-    for ( @{$res} ) {
+    while ( my $item = $res->next ) {
         if ( $level ) {
             printf "%s%s\n",
                 colored( '....' x $level, 'yellow' ),
-                $_->distribution;
+                $item->distribution;
         } else {
             printf "\n>> %s\n",
-                colored( $_->distribution, 'blue' );
+                colored( $item->distribution, 'blue' );
         }
 
-        dig( $_->distribution, $level + 1 );
+        dig( $item->distribution, $level + 1 );
     }
-};
+}

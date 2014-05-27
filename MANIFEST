@@ -14,6 +14,8 @@ examples/complex-either-and.pl
 examples/complex-either-not.pl
 examples/complex.pl
 examples/distribution.pl
+examples/module.pl
+examples/recent.pl
 examples/release.pl
 examples/rev_deps-recursive.pl
 examples/rev_deps.pl
@@ -46,3 +48,4 @@ t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/request.t
 t/resultset.t
+wishlist

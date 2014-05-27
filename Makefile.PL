@@ -29,6 +29,7 @@ my %WriteMakefileArgs = (
     "JSON::MaybeXS" => 0,
     "Moo" => 0,
     "Moo::Role" => 0,
+    "Safe::Isa" => 0,
     "Search::Elasticsearch" => "1.10",
     "Search::Elasticsearch::Scroll" => 0,
     "Try::Tiny" => 0,
@@ -40,9 +41,10 @@ my %WriteMakefileArgs = (
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
     "Test::Fatal" => 0,
-    "Test::More" => 0
+    "Test::More" => 0,
+    "base" => 0
   },
-  "VERSION" => "1.003000",
+  "VERSION" => "1.004000",
   "test" => {
     "TESTS" => "t/*.t t/api/*.t"
   }
@@ -59,11 +61,13 @@ my %FallbackPrereqs = (
   "Module::Build" => "0.3601",
   "Moo" => 0,
   "Moo::Role" => 0,
+  "Safe::Isa" => 0,
   "Search::Elasticsearch" => "1.10",
   "Search::Elasticsearch::Scroll" => 0,
   "Test::Fatal" => 0,
   "Test::More" => 0,
   "Try::Tiny" => 0,
+  "base" => 0,
   "strict" => 0,
   "warnings" => 0
 );

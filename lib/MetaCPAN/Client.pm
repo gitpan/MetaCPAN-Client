@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.003000';
+$MetaCPAN::Client::VERSION = '1.004000';
 use Moo;
 use Carp;
 
@@ -208,10 +208,10 @@ sub _reverse_deps {
         return [];
     };
 
-    return +[
-        map { MetaCPAN::Client::Release->new_from_request($_->{'_source'}) }
-        @{ $res->{'hits'}{'hits'} }
-    ];
+    return MetaCPAN::Client::ResultSet->new(
+        items => $res->{'hits'}{'hits'},
+        type  => 'release',
+    );
 }
 
 
@@ -221,13 +221,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.003000
+version 1.004000
 
 =head1 SYNOPSIS
 
@@ -306,8 +308,8 @@ L<MetaCPAN::Client::Module> objects on a complex (search spec based) search.
 
 =head2 distribution
 
-    my $dist = $mcpan->dist('MetaCPAN-Client');
-    my $dist = $mcpan->dist($search_spec);
+    my $dist = $mcpan->distribution('MetaCPAN-Client');
+    my $dist = $mcpan->distribution($search_spec);
 
 Finds a distribution by either its distribution name or by a search spec
 defined by a hash reference. Since it is common to many other searches, it is
@@ -347,8 +349,8 @@ L<MetaCPAN::Client::Release> objects on a complex (search spec based) search.
 
     my $deps = $mcpan->reverse_dependencies('ElasticSearch');
 
-Return an array (ref) of L<MetaCPAN::Client::Release> matching all
-releases that are dependent on a given module.
+all L<MetaCPAN::Client::Release> objects of releases that are dependent
+on a given module, returned as L<MetaCPAN::Client::ResultSet>.
 
 =head2 rev_deps
 

@@ -2,19 +2,9 @@ use strict;
 use warnings;
 package MetaCPAN::Client::ResultSet;
 # ABSTRACT: A Result Set
-$MetaCPAN::Client::ResultSet::VERSION = '1.003000';
+$MetaCPAN::Client::ResultSet::VERSION = '1.004000';
 use Moo;
 use Carp;
-
-has scroller => (
-    is       => 'ro',
-    isa      => sub {
-        ref $_[0] eq 'Search::Elasticsearch::Scroll'
-            or croak 'scroller must be an Search::Elasticsearch::Scroll object';
-    },
-    handles  => ['total'],
-    required => 1,
-);
 
 has type => (
     is       => 'ro',
@@ -26,31 +16,64 @@ has type => (
     required => 1,
 );
 
-has facets => (
-    is      => 'ro',
-    lazy    => 1,
-    builder => '_get_facets',
+# in case we're returning from a scrolled search
+has scroller => (
+    is        => 'ro',
+    isa       => sub {
+        use Safe::Isa;
+        $_[0]->$_isa('Search::Elasticsearch::Scroll')
+            or croak 'scroller must be an Search::Elasticsearch::Scroll object';
+    },
+    predicate => 'has_scroller',
 );
 
-sub _get_facets {
-    my $self = shift;
+# in case we're returning from a fetch
+has items => (
+    is  => 'ro',
+    isa => sub {
+        ref $_[0] eq 'ARRAY'
+            or croak 'items must be an array ref';
+    },
+);
 
-    return $self->scroller->facets || {};
+has total => (
+    is      => 'ro',
+    default => sub {
+        my $self = shift;
+
+        return $self->has_scroller ? $self->scroller->total
+                                   : scalar @{ $self->items };
+    },
+);
+
+sub BUILDARGS {
+    my ( $class, %args ) = @_;
+
+    exists $args{scroller} or exists $args{items}
+        or croak 'ResultSet must get either scroller or items';
+
+    exists $args{scroller} and exists $args{items}
+        and croak 'ResultSet must get either scroller or items, not both';
+
+    return \%args;
 }
-
 
 sub next {
     my $self   = shift;
-    my $result = $self->scroller->next;
+    my $result = $self->has_scroller ? $self->scroller->next
+                                     : shift @{ $self->items };
 
-    defined $result
-        or return;
+    defined $result or return;
 
     my $class = 'MetaCPAN::Client::' . ucfirst $self->type;
-
     return $class->new_from_request( $result->{'_source'} || $result->{'fields'} );
 }
 
+sub facets {
+    my $self = shift;
+
+    return $self->has_scroller ? $self->scroller->facets : {};
+}
 
 1;
 
@@ -58,13 +81,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 MetaCPAN::Client::ResultSet - A Result Set
 
 =head1 VERSION
 
-version 1.003000
+version 1.004000
 
 =head1 DESCRIPTION
 
@@ -76,7 +101,11 @@ and facets.
 
 =head2 scroller
 
-An L<Search::Elasticsearch::Scroll> object
+An L<Search::Elasticsearch::Scroll> object.
+
+=head2 items
+
+An arrayref of items to manually scroll over, instead of a scroller object.
 
 =head2 type
 
@@ -111,6 +140,10 @@ Iterator call to fetch the next result set object.
 =head2 total
 
 Iterator call to fetch the total amount of objects available in result set.
+
+=head2 BUILDARGS
+
+Double checks construction of objects. You should never run this yourself.
 
 =head1 AUTHORS
 

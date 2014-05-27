@@ -10,12 +10,13 @@ build_requires:
   Module::Build: 0.3601
   Test::Fatal: 0
   Test::More: 0
+  base: 0
   perl: 5.006
 configure_requires:
   ExtUtils::MakeMaker: 6.30
   Module::Build: 0.3601
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 5.015, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -30,11 +31,12 @@ requires:
   JSON::MaybeXS: 0
   Moo: 0
   Moo::Role: 0
+  Safe::Isa: 0
   Search::Elasticsearch: 1.10
   Search::Elasticsearch::Scroll: 0
   Try::Tiny: 0
   strict: 0
   warnings: 0
 resources:
-  repository: git://github.com/CPAN-API/metacpan-client.git
-version: 1.003000
+  repository: https://github.com/CPAN-API/metacpan-client.git
+version: 1.004000

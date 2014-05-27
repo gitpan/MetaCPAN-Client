@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Module;
 # ABSTRACT: A Module data object
-$MetaCPAN::Client::Module::VERSION = '1.003000';
+$MetaCPAN::Client::Module::VERSION = '1.004000';
 use Moo;
 extends 'MetaCPAN::Client::File';
 
@@ -12,13 +12,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 MetaCPAN::Client::Module - A Module data object
 
 =head1 VERSION
 
-version 1.003000
+version 1.004000
 
 =head1 DESCRIPTION
 
