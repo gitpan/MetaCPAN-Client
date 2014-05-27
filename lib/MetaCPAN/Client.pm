@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.004000';
+$MetaCPAN::Client::VERSION = '1.004001';
 use Moo;
 use Carp;
 
@@ -197,9 +197,14 @@ sub _reverse_deps {
         $res = $self->fetch(
             '/search/reverse_dependencies/'.$dist,
             {
-                query  => { match_all => {} },
-                filter => { term => { 'release.status' => 'latest' } },
                 size   => 5000,
+                query  => { match_all => {} },
+                filter => {
+                    and => [
+                        { term => { 'release.status' => 'latest' } },
+                        { term => { 'authorized'     => \1       } },
+                    ]
+                },
             }
         );
 
@@ -229,7 +234,7 @@ MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.004000
+version 1.004001
 
 =head1 SYNOPSIS
 
