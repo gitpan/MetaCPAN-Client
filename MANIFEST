@@ -7,6 +7,7 @@ META.yml
 Makefile.PL
 README
 dist.ini
+ex_complex.pl
 examples/author-country.pl
 examples/author.pl
 examples/author_releases.pl
@@ -15,6 +16,7 @@ examples/complex-either-not.pl
 examples/complex.pl
 examples/distribution.pl
 examples/module.pl
+examples/pod.pl
 examples/recent.pl
 examples/release.pl
 examples/rev_deps-recursive.pl
@@ -25,11 +27,13 @@ lib/MetaCPAN/Client/Distribution.pm
 lib/MetaCPAN/Client/Favorite.pm
 lib/MetaCPAN/Client/File.pm
 lib/MetaCPAN/Client/Module.pm
+lib/MetaCPAN/Client/Pod.pm
 lib/MetaCPAN/Client/Rating.pm
 lib/MetaCPAN/Client/Release.pm
 lib/MetaCPAN/Client/Request.pm
 lib/MetaCPAN/Client/ResultSet.pm
 lib/MetaCPAN/Client/Role/Entity.pm
+switching_to_filters
 t/00-compile.t
 t/api/_get.t
 t/api/_get_or_search.t
@@ -39,6 +43,7 @@ t/api/distribution.t
 t/api/favorite.t
 t/api/file.t
 t/api/module.t
+t/api/pod.t
 t/api/rating.t
 t/api/release.t
 t/author-critic.t

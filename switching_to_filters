@@ -1,0 +1,52 @@
+works:
+
+{
+    query  => { match_all => {} },
+    filter => {
+        or => [
+            { prefix => { name => "Dave " } },
+            { prefix => { name => "David " } },
+        ]
+    }
+}
+
+also:
+
+{
+    query  => { match_all => {} },
+    filter => {
+        or => [
+            { prefix => { name => "Dave " } },
+            {
+                and => [
+                    { prefix => { name => "David " } },
+                    { not => { prefix => { pauseid => "D" } } },
+                ]
+            },
+        ]
+    }
+}
+
+logic:
+- and => []
+- or  => []
+- not => {}
+
+wildcard replacements:
+- start ==> prefix
+- end   ==> postfix
+- other ==> keep current query build
+
+
+
+_____________
+basic element
+all
+either
+not
+------------
+
+    { name   => '' }
+    { all    => [] }
+    { either => [] }
+    { not    => [] }

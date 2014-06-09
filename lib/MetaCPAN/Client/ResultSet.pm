@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::ResultSet;
 # ABSTRACT: A Result Set
-$MetaCPAN::Client::ResultSet::VERSION = '1.004001';
+$MetaCPAN::Client::ResultSet::VERSION = '1.005000';
 use Moo;
 use Carp;
 
@@ -89,13 +89,13 @@ MetaCPAN::Client::ResultSet - A Result Set
 
 =head1 VERSION
 
-version 1.004001
+version 1.005000
 
 =head1 DESCRIPTION
 
 Object representing a result from Elastic Search. This is used for the complex
-(as in non-simple) queries to MetaCPAN. It provides easy access to the scroller
-and facets.
+(as in L<non-simple/MetaCPAN::Client/"SEARCH SPEC">) queries to MetaCPAN. It
+provides easy access to the scroller and facets.
 
 =head1 ATTRIBUTES
 

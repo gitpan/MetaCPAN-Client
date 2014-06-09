@@ -4,7 +4,7 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.039
 
-use Test::More  tests => 11 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
+use Test::More  tests => 12 + ($ENV{AUTHOR_TESTING} ? 1 : 0);
 
 
 
@@ -15,6 +15,7 @@ my @module_files = (
     'MetaCPAN/Client/Favorite.pm',
     'MetaCPAN/Client/File.pm',
     'MetaCPAN/Client/Module.pm',
+    'MetaCPAN/Client/Pod.pm',
     'MetaCPAN/Client/Rating.pm',
     'MetaCPAN/Client/Release.pm',
     'MetaCPAN/Client/Request.pm',

@@ -8,13 +8,15 @@ my $authors =
         either => [
             { name => 'Dave *'  },
             { name => 'David *' },
-        ],
-        all => { email => '*gmail.com' },
+        ]
     });
 
 my %output = (
     TOTAL => $authors->total,
-    NAMES => [ map { $authors->next->name } 0 .. 9 ],
+    NAMES => [
+        map { my $x=$authors->next; [$x->name,$x->pauseid] }
+        0 .. 9
+    ],
 );
 
 p %output;

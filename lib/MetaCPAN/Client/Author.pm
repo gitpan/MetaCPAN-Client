@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Author;
 # ABSTRACT: An Author data object
-$MetaCPAN::Client::Author::VERSION = '1.004001';
+$MetaCPAN::Client::Author::VERSION = '1.005000';
 use Moo;
 
 with 'MetaCPAN::Client::Role::Entity';
@@ -54,7 +54,7 @@ MetaCPAN::Client::Author - An Author data object
 
 =head1 VERSION
 
-version 1.004001
+version 1.005000
 
 =head1 DESCRIPTION
 

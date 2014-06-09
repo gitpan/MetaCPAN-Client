@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Request;
 # ABSTRACT: Object used for making requests to MetaCPAN
-$MetaCPAN::Client::Request::VERSION = '1.004001';
+$MetaCPAN::Client::Request::VERSION = '1.005000';
 use Moo;
 use Carp;
 use JSON::MaybeXS qw<decode_json encode_json>;
@@ -140,6 +140,7 @@ sub _build_query_rec {
 
   KEY: for my $k ( qw/ all either not / ) {
         my $v = delete $args->{$k} || next KEY;
+        ref $v eq 'HASH'  and $v = [ $v ];
         ref $v eq 'ARRAY' or croak "invalid value for key $k";
 
         undef $basic_element;
@@ -187,7 +188,7 @@ MetaCPAN::Client::Request - Object used for making requests to MetaCPAN
 
 =head1 VERSION
 
-version 1.004001
+version 1.005000
 
 =head1 ATTRIBUTES
 
