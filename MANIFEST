@@ -18,6 +18,7 @@ examples/distribution.pl
 examples/module.pl
 examples/pod.pl
 examples/recent.pl
+examples/recent_today.pl
 examples/release.pl
 examples/rev_deps-recursive.pl
 examples/rev_deps.pl

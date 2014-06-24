@@ -1,13 +1,10 @@
-
-# examples/recent.pl
-
 use strict;
 use warnings;
 use Data::Printer;
 use MetaCPAN::Client;
 
 my $recent =
-    MetaCPAN::Client->new->recent(3);
+    MetaCPAN::Client->new->recent('today');
 
 while ( my $rel = $recent->next ) {
     my %output = (

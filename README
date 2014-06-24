@@ -3,7 +3,7 @@ NAME
     API
 
 VERSION
-    version 1.005000
+    version 1.006000
 
 SYNOPSIS
         # simple usage
@@ -118,6 +118,14 @@ METHODS
 
   rev_deps
     Alias to "reverse_dependencies" described above.
+
+  recent
+        my $recent = $mcpan->recent(10);
+        my $recent = $mcpan->recent('today');
+
+    return the latest N releases, or all releases from today.
+
+    returns a MetaCPAN::Client::ResultSet of MetaCPAN::Client::Release.
 
   pod
     Not implemented yet.

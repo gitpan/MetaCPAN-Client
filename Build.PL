@@ -20,7 +20,7 @@ my %module_build_args = (
     "Mickey Nasriachi <mickey\@cpan.org>"
   ],
   "dist_name" => "MetaCPAN-Client",
-  "dist_version" => "1.005000",
+  "dist_version" => "1.006000",
   "license" => "perl",
   "module_name" => "MetaCPAN::Client",
   "recommends" => {},

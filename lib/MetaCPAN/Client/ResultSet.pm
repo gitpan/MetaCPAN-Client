@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::ResultSet;
 # ABSTRACT: A Result Set
-$MetaCPAN::Client::ResultSet::VERSION = '1.005000';
+$MetaCPAN::Client::ResultSet::VERSION = '1.006000';
 use Moo;
 use Carp;
 
@@ -89,7 +89,7 @@ MetaCPAN::Client::ResultSet - A Result Set
 
 =head1 VERSION
 
-version 1.005000
+version 1.006000
 
 =head1 DESCRIPTION
 
