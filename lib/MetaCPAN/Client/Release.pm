@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Release;
 # ABSTRACT: A Release data object
-$MetaCPAN::Client::Release::VERSION = '1.006000';
+$MetaCPAN::Client::Release::VERSION = '1.007000';
 use Moo;
 
 with 'MetaCPAN::Client::Role::Entity';
@@ -40,7 +40,7 @@ MetaCPAN::Client::Release - A Release data object
 
 =head1 VERSION
 
-version 1.006000
+version 1.007000
 
 =head1 DESCRIPTION
 

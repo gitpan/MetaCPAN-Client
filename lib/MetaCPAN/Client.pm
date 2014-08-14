@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.006000';
+$MetaCPAN::Client::VERSION = '1.007000';
 use Moo;
 use Carp;
 
@@ -169,7 +169,7 @@ sub _get {
         or croak sprintf( 'Failed to fetch %s (%s)', ucfirst($type), $arg );
 
     my $class = 'MetaCPAN::Client::' . ucfirst($type);
-    return $class->new_from_request($response);
+    return $class->new_from_request($response, $self);
 }
 
 sub _search {
@@ -301,7 +301,7 @@ MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.006000
+version 1.007000
 
 =head1 SYNOPSIS
 

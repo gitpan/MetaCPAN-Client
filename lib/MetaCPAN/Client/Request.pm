@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Request;
 # ABSTRACT: Object used for making requests to MetaCPAN
-$MetaCPAN::Client::Request::VERSION = '1.006000';
+$MetaCPAN::Client::Request::VERSION = '1.007000';
 use Moo;
 use Carp;
 use JSON::MaybeXS qw<decode_json encode_json>;
@@ -30,10 +30,17 @@ has base_url => (
     },
 );
 
+has _user_ua => (
+    init_arg  => 'ua',
+    is        => 'ro',
+    predicate => '_has_user_ua',
+);
+
 has ua => (
-    is      => 'ro',
-    lazy    => 1,
-    builder => '_build_ua',
+    init_arg => undef,
+    is       => 'ro',
+    lazy     => 1,
+    builder  => '_build_ua',
 );
 
 has ua_args => (
@@ -45,6 +52,13 @@ has ua_args => (
 
 sub _build_ua {
     my $self = shift;
+    # This level of indirection is so that if a user has not specified a custom UA
+    # MetaCPAN::Client and ElasticSearch will have their own UA's
+    #
+    # But if the user **has** specified a custom UA, that UA is used for both.
+    if ( $self->_has_user_ua ) {
+      return $self->_user_ua;
+    }
     return HTTP::Tiny->new( @{ $self->ua_args } );
 }
 
@@ -72,6 +86,7 @@ sub ssearch {
         nodes            => $self->domain,
         cxn_pool         => 'Static::NoPing',
         send_get_body_as => 'POST',
+        ( $self->_has_user_ua ? ( handle => $self->_user_ua ) : () )
     );
 
     my $scroller = Search::Elasticsearch::Scroll->new(
@@ -188,7 +203,7 @@ MetaCPAN::Client::Request - Object used for making requests to MetaCPAN
 
 =head1 VERSION
 
-version 1.006000
+version 1.007000
 
 =head1 ATTRIBUTES
 

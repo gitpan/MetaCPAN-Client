@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Role::Entity;
 # ABSTRACT: A role for MetaCPAN entities
-$MetaCPAN::Client::Role::Entity::VERSION = '1.006000';
+$MetaCPAN::Client::Role::Entity::VERSION = '1.007000';
 use Moo::Role;
 
 has data => (
@@ -10,10 +10,22 @@ has data => (
     required => 1,
 );
 
+has client => (
+    is         => 'ro',
+    lazy       => 1,
+    builder    => '_build_client',
+);
+
+sub _build_client {
+    require MetaCPAN::Client;
+    return MetaCPAN::Client->new();
+}
+
 sub new_from_request {
-    my ( $class, $request ) = @_;
+    my ( $class, $request, $client ) = @_;
 
     return $class->new(
+        ( defined $client ? ( client => $client ) : () ),
         data => {
             map +( defined $request->{$_} ? ( $_ => $request->{$_} ) : () ),
             @{ $class->_known_fields }
@@ -35,7 +47,7 @@ MetaCPAN::Client::Role::Entity - A role for MetaCPAN entities
 
 =head1 VERSION
 
-version 1.006000
+version 1.007000
 
 =head1 DESCRIPTION
 

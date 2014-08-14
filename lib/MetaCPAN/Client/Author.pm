@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Author;
 # ABSTRACT: An Author data object
-$MetaCPAN::Client::Author::VERSION = '1.006000';
+$MetaCPAN::Client::Author::VERSION = '1.007000';
 use Moo;
 
 with 'MetaCPAN::Client::Role::Entity';
@@ -29,10 +29,7 @@ sub releases {
     my $self = shift;
     my $id   = $self->pauseid;
 
-    require MetaCPAN::Client;
-
-    return
-        MetaCPAN::Client->new->release({
+    return $self->client->release({
             all => [
                 { author => $id      },
                 { status => 'latest' },
@@ -54,7 +51,7 @@ MetaCPAN::Client::Author - An Author data object
 
 =head1 VERSION
 
-version 1.006000
+version 1.007000
 
 =head1 DESCRIPTION
 
