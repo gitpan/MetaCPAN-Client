@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Role::Entity;
 # ABSTRACT: A role for MetaCPAN entities
-$MetaCPAN::Client::Role::Entity::VERSION = '1.007000';
+$MetaCPAN::Client::Role::Entity::VERSION = '1.007001';
 use Moo::Role;
 
 has data => (
@@ -47,7 +47,7 @@ MetaCPAN::Client::Role::Entity - A role for MetaCPAN entities
 
 =head1 VERSION
 
-version 1.007000
+version 1.007001
 
 =head1 DESCRIPTION
 

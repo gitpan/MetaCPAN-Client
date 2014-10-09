@@ -20,7 +20,7 @@ my %module_build_args = (
     "Mickey Nasriachi <mickey\@cpan.org>"
   ],
   "dist_name" => "MetaCPAN-Client",
-  "dist_version" => "1.007000",
+  "dist_version" => "1.007001",
   "license" => "perl",
   "module_name" => "MetaCPAN::Client",
   "recommends" => {},
@@ -41,13 +41,11 @@ my %module_build_args = (
   "script_files" => [],
   "test_requires" => {
     "File::Spec" => 0,
-    "HTTP::Tiny::Mech" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
     "Test::Fatal" => 0,
     "Test::More" => 0,
     "Test::Requires" => 0,
-    "WWW::Mechanize::Cached" => 0,
     "base" => 0,
     "perl" => "5.006"
   }
@@ -56,14 +54,12 @@ my %module_build_args = (
 
 my %fallback_build_requires = (
   "File::Spec" => 0,
-  "HTTP::Tiny::Mech" => 0,
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
   "Module::Build" => "0.28",
   "Test::Fatal" => 0,
   "Test::More" => 0,
   "Test::Requires" => 0,
-  "WWW::Mechanize::Cached" => 0,
   "base" => 0,
   "perl" => "5.006"
 );

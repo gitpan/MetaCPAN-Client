@@ -38,16 +38,14 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "File::Spec" => 0,
-    "HTTP::Tiny::Mech" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
     "Test::Fatal" => 0,
     "Test::More" => 0,
     "Test::Requires" => 0,
-    "WWW::Mechanize::Cached" => 0,
     "base" => 0
   },
-  "VERSION" => "1.007000",
+  "VERSION" => "1.007001",
   "test" => {
     "TESTS" => "t/*.t t/api/*.t"
   }
@@ -58,7 +56,6 @@ my %FallbackPrereqs = (
   "Carp" => 0,
   "File::Spec" => 0,
   "HTTP::Tiny" => 0,
-  "HTTP::Tiny::Mech" => 0,
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
   "JSON::MaybeXS" => 0,
@@ -72,7 +69,6 @@ my %FallbackPrereqs = (
   "Test::More" => 0,
   "Test::Requires" => 0,
   "Try::Tiny" => 0,
-  "WWW::Mechanize::Cached" => 0,
   "base" => 0,
   "strict" => 0,
   "warnings" => 0
