@@ -40,4 +40,4 @@ requires:
   warnings: 0
 resources:
   repository: https://github.com/CPAN-API/metacpan-client.git
-version: 1.007001
+version: 1.008000

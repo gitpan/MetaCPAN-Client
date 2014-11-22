@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Pod;
 # ABSTRACT: A Pod object
-$MetaCPAN::Client::Pod::VERSION = '1.007001';
+$MetaCPAN::Client::Pod::VERSION = '1.008000';
 use Moo;
 
 has name => ( is => 'ro', required => 1 );
@@ -53,7 +53,7 @@ MetaCPAN::Client::Pod - A Pod object
 
 =head1 VERSION
 
-version 1.007001
+version 1.008000
 
 =head1 SYNOPSIS
 

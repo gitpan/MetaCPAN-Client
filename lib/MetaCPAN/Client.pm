@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.007001';
+$MetaCPAN::Client::VERSION = '1.008000';
 use Moo;
 use Carp;
 
@@ -31,6 +31,8 @@ sub BUILDARGS {
 
     $args{'request'} ||= MetaCPAN::Client::Request->new(
         ( ua => $args{'ua'} ) x !! $args{'ua'},
+        $args{domain}  ? ( domain => $args{domain} )   : (),
+        $args{version} ? ( version => $args{version} ) : (),
     );
 
     return \%args;
@@ -152,6 +154,19 @@ sub recent {
     croak "recent: invalid size value";
 }
 
+sub all {
+    my $self = shift;
+    my $type = shift;
+
+    my $match_all = { __MATCH_ALL__ => 1 };
+
+    $type eq 'authors'       and return $self->author( $match_all );
+    $type eq 'distributions' and return $self->distribution( $match_all );
+    $type eq 'modules'       and return $self->module( $match_all );
+    $type eq 'releases'      and return $self->release( $match_all );
+
+    croak "all: unsupported type";
+}
 
 ###
 
@@ -301,14 +316,14 @@ MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.007001
+version 1.008000
 
 =head1 SYNOPSIS
 
     # simple usage
     my $mcpan  = MetaCPAN::Client->new();
     my $author = $mcpan->author('XSAWYERX');
-    my $dist   = $mcpan->distribuion('MetaCPAN-Client');
+    my $dist   = $mcpan->distribution('MetaCPAN-Client');
 
     # advanced usage with cache (contributed by Kent Fredric)
     use CHI;
@@ -439,7 +454,17 @@ returns a L<MetaCPAN::Client::ResultSet> of L<MetaCPAN::Client::Release>.
 
 =head2 pod
 
-Not implemented yet.
+Get POD for given file/module name.
+returns a L<MetaCPAN::Client::POD> object, which supports various output
+formats (html, plain, x_pod & x_markdown).
+
+    my $pod = $mcpan->pod('Moo')->html;
+
+=head2 all
+
+Retrieve all matches for authors/modules/distributions or releases.
+
+    my $all_releases = $mcpan->all('releases')
 
 =head2 BUILDARGS
 
@@ -487,6 +512,20 @@ key:
             { name  => 'John *'     },
             { email => '*gmail.com' },
         ]
+    } );
+
+If you want to do something even more complicated,
+You can also nest your queries, e.g.:
+
+    my $gmail_daves_or_cpan_sams = $mcpan->author( {
+        either => [
+            { all => [ { name => 'Dave *'  },
+                       { email => '*gmail.com' } ]
+            },
+            { all => [ { name => 'Sam *' },
+                       { email => '*cpan.org' } ]
+            },
+        ],
     } );
 
 =head2 NOT
