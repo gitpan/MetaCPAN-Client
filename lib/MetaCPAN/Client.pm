@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client;
 # ABSTRACT: A comprehensive, DWIM-featured client to the MetaCPAN API
-$MetaCPAN::Client::VERSION = '1.008000';
+$MetaCPAN::Client::VERSION = '1.008001';
 use Moo;
 use Carp;
 
@@ -316,7 +316,7 @@ MetaCPAN::Client - A comprehensive, DWIM-featured client to the MetaCPAN API
 
 =head1 VERSION
 
-version 1.008000
+version 1.008001
 
 =head1 SYNOPSIS
 
@@ -455,7 +455,7 @@ returns a L<MetaCPAN::Client::ResultSet> of L<MetaCPAN::Client::Release>.
 =head2 pod
 
 Get POD for given file/module name.
-returns a L<MetaCPAN::Client::POD> object, which supports various output
+returns a L<MetaCPAN::Client::Pod> object, which supports various output
 formats (html, plain, x_pod & x_markdown).
 
     my $pod = $mcpan->pod('Moo')->html;
@@ -608,7 +608,7 @@ Mickey Nasriachi <mickey@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Sawyer X.
+This software is copyright (c) 2015 by Sawyer X.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

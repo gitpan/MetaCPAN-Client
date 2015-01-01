@@ -2,7 +2,7 @@ use strict;
 use warnings;
 package MetaCPAN::Client::Pod;
 # ABSTRACT: A Pod object
-$MetaCPAN::Client::Pod::VERSION = '1.008000';
+$MetaCPAN::Client::Pod::VERSION = '1.008001';
 use Moo;
 
 has name => ( is => 'ro', required => 1 );
@@ -53,7 +53,7 @@ MetaCPAN::Client::Pod - A Pod object
 
 =head1 VERSION
 
-version 1.008000
+version 1.008001
 
 =head1 SYNOPSIS
 
@@ -100,7 +100,7 @@ Mickey Nasriachi <mickey@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Sawyer X.
+This software is copyright (c) 2015 by Sawyer X.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

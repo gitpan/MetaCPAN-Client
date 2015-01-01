@@ -17,7 +17,7 @@ configure_requires:
   ExtUtils::MakeMaker: 0
   Module::Build: 0.28
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.142060'
+generated_by: 'Dist::Zilla version 5.025, CPAN::Meta::Converter version 2.142690'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -39,5 +39,8 @@ requires:
   strict: 0
   warnings: 0
 resources:
-  repository: https://github.com/CPAN-API/metacpan-client.git
-version: 1.008000
+  IRC: irc://irc.perl.org/#metacpan
+  WebIRC: https://chat.mibbit.com/#metacpan@irc.perl.org
+  bugtracker: https://github.com/CPAN-API/metacpan-client/issues
+  repository: git://github.com/CPAN-API/metacpan-client.git
+version: 1.008001
